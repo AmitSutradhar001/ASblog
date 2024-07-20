@@ -1,7 +1,7 @@
 import { User } from "../data/mongodb.js";
 import bcryptjs from "bcryptjs";
 
-const authController = async (req, res) => {
+const authController = async (req, res, next) => {
   const data = req.body;
   const { email, username, password } = data;
   if (!email || !password || !username) {
@@ -20,7 +20,7 @@ const authController = async (req, res) => {
     await newUser.save();
     return res.status(200).json({ message: "user is created successfully!" });
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    next(error);
   }
 };
 export default authController;

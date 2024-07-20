@@ -19,7 +19,7 @@ const Header = () => {
           to={"/"}
           className="self-center whitespace-nowrap text-sm sm:text-xl font-bold text-white bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-400 px-5 py-2 rounded-lg"
         >
-          ASblog
+          AsBlog
         </Link>
         <form className="md:w-72">
           <TextInput
