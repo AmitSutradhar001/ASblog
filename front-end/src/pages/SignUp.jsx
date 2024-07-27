@@ -1,7 +1,6 @@
 import Input from "../components/signup/Input";
 import { Link, useNavigate } from "react-router-dom";
 import Google from "/google.svg";
-import "./Login.css";
 import { useState } from "react";
 const SignUp = () => {
   const [errMsg, setErrMsg] = useState(null);
@@ -45,7 +44,7 @@ const SignUp = () => {
           <div className="flex flex-col mt-10 md:mt-0 z-20 bg-white rounded-md flex-wrap justify-center items-center shadow-xl p-8 border-[1px]">
             <Link
               to={"/"}
-              className="self-center whitespace-nowrap text-sm sm:text-xl font-bold text-white bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-400 px-5 py-2 w-32 text-center rounded-lg"
+              className="self-center whitespace-nowrap text-sm sm:text-xl font-bold text-white bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-400 px-5 py-2 w-32 text-center rounded-tl-lg rounded-br-lg"
             >
               AsBlog
             </Link>

@@ -17,7 +17,7 @@ const Header = () => {
       <Navbar className="border-b-2 flex justify-between">
         <Link
           to={"/"}
-          className="self-center whitespace-nowrap text-sm sm:text-xl font-bold text-white bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-400 px-5 py-2 rounded-lg"
+          className="self-center whitespace-nowrap text-sm sm:text-xl font-bold text-white bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-400 px-5 py-2 rounded-tl-lg rounded-br-lg"
         >
           AsBlog
         </Link>
