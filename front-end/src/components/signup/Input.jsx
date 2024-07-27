@@ -8,13 +8,13 @@ const Input = ({ type, name, placeHolder = "", svg }) => {
         >
           {name}
         </label>
-        <div className="flex justify-between w-full sm:w-72 md:w-96 p-2  rounded-md">
+        <div className="flex justify-between w-full sm:w-72 md:w-96 p-2 item  ">
           <input
             type={type}
             id={name}
             name={name}
             placeholder={placeHolder}
-            className="w-full sm:w-72 md:w-96 px-4 outline-none"
+            className="w-full sm:w-72 md:w-96 px-4 outline-none rounded-md"
           />
           {svg && <img src={svg} alt="" />}
         </div>

@@ -1,11 +1,14 @@
 import Input from "../components/signup/Input";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Google from "/google.svg";
 import { useState } from "react";
+import { useApi } from "../context/ApiContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const SignUp = () => {
-  const [errMsg, setErrMsg] = useState(null);
   const [isLoading, setIsloading] = useState(false);
-  const navigate = useNavigate();
+  const api = useApi();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -13,33 +16,57 @@ const SignUp = () => {
     const email = formData.get("Email").trim();
     const password = formData.get("Password").trim();
     if (!username || !email || !password) {
-      return setErrMsg("Pls fill out the form!");
+      return toast.warn("Fill the form!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
     try {
       setIsloading(true);
-      setErrMsg(null);
-      const res = await fetch("/api/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, email, password }),
-      });
-      const data = await res.json();
-      if (data.success === false) {
-        setErrMsg(data.message);
-      }
-      setIsloading(false);
-      if (res.ok) {
-        navigate("/signin");
+      const res = await api.post(
+        import.meta.env.VITE_SIGNUP_ROUTE,
+        { username, email, password },
+        import.meta.env.VITE_SUP_SIN_HEADERS
+      );
+      console.log(res);
+      if (res.status == 201) {
+        return toast.success(res.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
     } catch (error) {
-      setErrMsg(error.message);
+      toast.error(error.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } finally {
       setIsloading(false);
     }
   };
 
   return (
     <>
-      <div className="flex justify-center mt-16 items-center h-screen w-full">
+      <ToastContainer style={{ top: "50px" }} />
+      <div className="flex justify-center mt-16 items-center h-fit w-full">
         <div className="flex flex-col gap-5 items-center -top-7 justify-center md:h-screen sm:bg-white md:bg-white">
           <div className="flex flex-col mt-10 md:mt-0 z-20 bg-white rounded-md flex-wrap justify-center items-center shadow-xl p-8 border-[1px]">
             <Link
@@ -96,14 +123,6 @@ const SignUp = () => {
                 )}
               </button>
             </form>
-            {errMsg && (
-              <div
-                className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 font-medium text-center flex justify-center items-center w-full mt-2  dark:text-red-400"
-                role="alert"
-              >
-                {errMsg}
-              </div>
-            )}
             <p className="text-center w-full p-2">Or Continue with</p>
             <div className="flex justify-center items-center gap-4 w-full p-2 flex-wrap">
               <img
