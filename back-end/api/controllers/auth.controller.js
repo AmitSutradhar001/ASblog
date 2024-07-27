@@ -58,7 +58,9 @@ export const signin = async (req, res, next) => {
       expiresIn: "1h",
     });
 
-    return res.status(200).json({ token, message: "Signed in successfully!" });
+    return res
+      .status(200)
+      .json({ access_token: token, message: "Signed in successfully!" });
   } catch (error) {
     return next({
       status: error.status || 500,

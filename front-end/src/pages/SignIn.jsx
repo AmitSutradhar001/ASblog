@@ -3,12 +3,20 @@ import { Link } from "react-router-dom";
 import Google from "/google.svg";
 import { useState } from "react";
 import { useApi } from "../context/ApiContext";
+import { jwtDecode } from "jwt-decode";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  signInFailure,
+  signInStart,
+  signInSuccess,
+} from "../redux/user/userSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const SignIn = () => {
-  const [isLoading, setIsloading] = useState(false);
   const api = useApi();
+  const dispatch = useDispatch();
+  const { loading, error: errorMessage } = useSelector((state) => state.user);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -27,7 +35,7 @@ const SignIn = () => {
       });
     }
     try {
-      setIsloading(true);
+      dispatch(signInStart());
       const res = await api.post(
         import.meta.env.VITE_SIGNIN_ROUTE,
         { email, password },
@@ -35,6 +43,7 @@ const SignIn = () => {
       );
       console.log(res);
       if (res.status == 200) {
+        dispatch(signInSuccess(jwtDecode(res.data.access_token)));
         return toast.success(res.data.message, {
           position: "top-right",
           autoClose: 5000,
@@ -47,7 +56,8 @@ const SignIn = () => {
         });
       }
     } catch (error) {
-      toast.error(error.message, {
+      dispatch(signInFailure(error.response.data.message));
+      toast.error(error.response.data.message, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -57,8 +67,6 @@ const SignIn = () => {
         progress: undefined,
         theme: "light",
       });
-    } finally {
-      setIsloading(false);
     }
   };
 
@@ -93,11 +101,11 @@ const SignIn = () => {
               />
 
               <button
-                disabled={isLoading}
+                disabled={loading}
                 type="submit"
                 className="w-full mt-3 p-2 text-white font-semibold text-center bg-gradient-to-r from-[#A54DFF] to-[#ff4dca] rounded-md transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 duration-300"
               >
-                {isLoading ? (
+                {loading ? (
                   <div role="status">
                     <svg
                       aria-hidden="true"

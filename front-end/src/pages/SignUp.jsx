@@ -34,7 +34,6 @@ const SignUp = () => {
         { username, email, password },
         import.meta.env.VITE_SUP_SIN_HEADERS
       );
-      console.log(res);
       if (res.status == 201) {
         return toast.success(res.data.message, {
           position: "top-right",
@@ -48,7 +47,7 @@ const SignUp = () => {
         });
       }
     } catch (error) {
-      toast.error(error.message, {
+      toast.error(error.response.data.message || error.message, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -66,7 +65,7 @@ const SignUp = () => {
   return (
     <>
       <ToastContainer style={{ top: "50px" }} />
-      <div className="flex justify-center mt-16 items-center h-fit w-full">
+      <div className="flex justify-center mt-16 items-center w-full">
         <div className="flex flex-col gap-5 items-center -top-7 justify-center md:h-screen sm:bg-white md:bg-white">
           <div className="flex flex-col mt-10 md:mt-0 z-20 bg-white rounded-md flex-wrap justify-center items-center shadow-xl p-8 border-[1px]">
             <Link

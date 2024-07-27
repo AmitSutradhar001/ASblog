@@ -9,25 +9,31 @@ import NotFound from "./pages/NotFound";
 import Header from "./components/Header";
 import FooterCom from "./components/FooterCom";
 import { ApiProvider } from "./context/ApiContext";
-
+import { store, persistor } from "./redux/store.js";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 const App = () => {
   return (
     <>
       <BrowserRouter>
-        <ApiProvider>
-          <Header />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/dashbord" element={<Dashbord />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+        <PersistGate persistor={persistor}>
+          <Provider store={store}>
+            <ApiProvider>
+              <Header />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/dashbord" element={<Dashbord />} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="/signin" element={<SignIn />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
 
-          <FooterCom />
-        </ApiProvider>
+              <FooterCom />
+            </ApiProvider>
+          </Provider>
+        </PersistGate>
       </BrowserRouter>
     </>
   );
