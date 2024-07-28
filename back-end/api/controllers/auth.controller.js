@@ -53,7 +53,6 @@ export const signin = async (req, res, next) => {
       return next({ status: 400, message: "Invalid Password!" });
     }
     validUser.password = "pass";
-    console.log(validUser);
     const token = jwt.sign({ validUser }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
@@ -61,6 +60,47 @@ export const signin = async (req, res, next) => {
     return res
       .status(200)
       .json({ access_token: token, message: "Signed in successfully!" });
+  } catch (error) {
+    return next({
+      status: error.status || 500,
+      message: error.message || "Internal Server Error!",
+    });
+  }
+};
+
+export const google = async (req, res, next) => {
+  console.log("google");
+  const { email, name, googlePhotoUrl } = req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (user) {
+      user.password = "pass";
+      const token = jwt.sign({ user }, process.env.JWT_SECRET, {
+        expiresIn: "1h",
+      });
+      return res
+        .status(200)
+        .json({ access_token: token, message: "Signed in successfully!" });
+    } else {
+      const genPassword = Math.random().toString(36).slice(-8);
+      const hashedPassword = bcryptjs.hashSync(genPassword, 10);
+      const newUser = new User({
+        username:
+          name.toLowerCase().split(" ").join("") +
+          Math.random().toString(9).slice(-4),
+        email,
+        password: hashedPassword,
+        profilePicture: googlePhotoUrl,
+      });
+      await newUser.save();
+      newUser.password = "pass";
+      const token = jwt.sign({ newUser }, process.env.JWT_SECRET, {
+        expiresIn: "1h",
+      });
+      return res
+        .status(200)
+        .json({ access_token: token, message: "Signed in successfully!" });
+    }
   } catch (error) {
     return next({
       status: error.status || 500,

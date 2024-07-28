@@ -12,26 +12,29 @@ import { ApiProvider } from "./context/ApiContext";
 import { store, persistor } from "./redux/store.js";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
+import ThemeProvider from "./components/ThemeProvider.jsx";
+
 const App = () => {
   return (
     <>
       <BrowserRouter>
         <PersistGate persistor={persistor}>
           <Provider store={store}>
-            <ApiProvider>
-              <Header />
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/dashbord" element={<Dashbord />} />
-                <Route path="/projects" element={<Projects />} />
-                <Route path="/signin" element={<SignIn />} />
-                <Route path="/signup" element={<SignUp />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-
-              <FooterCom />
-            </ApiProvider>
+            <ThemeProvider>
+              <ApiProvider>
+                <Header />
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/dashbord" element={<Dashbord />} />
+                  <Route path="/projects" element={<Projects />} />
+                  <Route path="/signin" element={<SignIn />} />
+                  <Route path="/signup" element={<SignUp />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+                <FooterCom />
+              </ApiProvider>
+            </ThemeProvider>
           </Provider>
         </PersistGate>
       </BrowserRouter>
