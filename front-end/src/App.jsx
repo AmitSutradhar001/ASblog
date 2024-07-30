@@ -13,7 +13,7 @@ import { store, persistor } from "./redux/store.js";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import ThemeProvider from "./components/ThemeProvider.jsx";
-
+import { PrivateCom } from "./components/PrivateCom.jsx";
 const App = () => {
   return (
     <>
@@ -26,7 +26,14 @@ const App = () => {
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/about" element={<About />} />
-                  <Route path="/dashbord" element={<Dashbord />} />
+                  <Route
+                    path="/dashbord"
+                    element={
+                      <PrivateCom>
+                        <Dashbord />
+                      </PrivateCom>
+                    }
+                  />
                   <Route path="/projects" element={<Projects />} />
                   <Route path="/signin" element={<SignIn />} />
                   <Route path="/signup" element={<SignUp />} />
