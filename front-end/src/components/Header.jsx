@@ -74,6 +74,7 @@ const Header = () => {
                 onClick={toggleMenu}
                 className="rounded-full w-10 h-10"
               />
+
               {isOpen && (
                 <div className="absolute right-0 w-28 mt-2 py-2 bg-white border rounded shadow-xl">
                   <NavLink to="/" className={getNavLinkClass("/profile")}>

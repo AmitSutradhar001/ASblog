@@ -59,7 +59,7 @@ export const signin = async (req, res, next) => {
 
     return res
       .status(200)
-      .json({ access_token: token, message: "Signed in successfully!" });
+      .json({ asblog_token: token, message: "Signed in successfully!" });
   } catch (error) {
     return next({
       status: error.status || 500,
@@ -99,7 +99,7 @@ export const google = async (req, res, next) => {
       });
       return res
         .status(200)
-        .json({ access_token: token, message: "Signed in successfully!" });
+        .json({ asblog_token: token, message: "Signed in successfully!" });
     }
   } catch (error) {
     return next({

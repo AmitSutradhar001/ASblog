@@ -14,13 +14,13 @@ const DashSidebar = () => {
   }, [location.search]);
 
   return (
-    <Sidebar>
+    <Sidebar className="w-full md:w-64 h-full">
       <Sidebar.Items>
         <Sidebar.ItemGroup>
-          <Sidebar.Item active={tab === "profile"} label={"User"}>
+          <Sidebar.Item active={tab === "profile"} label={"User"} as="div">
             <Link
               to="/dashbord?tab=profile"
-              className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+              className="flex items-center w-full p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
             >
               <svg
                 className="w-6 h-6 text-gray-800 dark:text-white"

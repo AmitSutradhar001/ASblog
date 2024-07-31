@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useApi } from "../context/ApiContext";
 import { jwtDecode } from "jwt-decode";
 import { useDispatch, useSelector } from "react-redux";
+import Cookies from "js-cookie";
 import {
   signInFailure,
   signInStart,
@@ -41,7 +42,8 @@ const SignIn = () => {
         import.meta.env.VITE_SUP_SIN_HEADERS
       );
       if (res.status == 200) {
-        dispatch(signInSuccess(jwtDecode(res.data.access_token)));
+        dispatch(signInSuccess(jwtDecode(res.data.asblog_token)));
+        Cookies.set("asblog_token", res.data.asblog_token, { expires: 1 / 24 });
         return toast.success(res.data.message, {
           position: "top-right",
           autoClose: 5000,

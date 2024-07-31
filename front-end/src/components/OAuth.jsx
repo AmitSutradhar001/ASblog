@@ -6,6 +6,7 @@ import { useApi } from "../context/ApiContext";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
 
 const OAuth = () => {
   const auth = getAuth(app);
@@ -27,7 +28,8 @@ const OAuth = () => {
         import.meta.env.VITE_SUP_SIN_HEADERS
       );
       if (res.status == 200) {
-        dispatch(signInSuccess(jwtDecode(res.data.access_token)));
+        dispatch(signInSuccess(jwtDecode(res.data.asblog_token)));
+        Cookies.set("asblog_token", res.data.asblog_token);
         navigate("/");
       }
     } catch (error) {
