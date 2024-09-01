@@ -6,6 +6,7 @@ import { useApi } from "../context/ApiContext";
 import { endLoading, startLoading } from "../redux/user/userSlice";
 import Loading from "../components/Loading";
 import CommentSection from "../components/CommentSection";
+import PostCard from "../components/PostCard";
 // import CallToAction from "../components/CallToAction";
 
 const PostPage = () => {
@@ -14,6 +15,7 @@ const PostPage = () => {
   const { postSlug } = useParams(); // don't use slug for API call
   const { loading } = useSelector((state) => state.user);
   const [currentPost, setCurrentPost] = useState(null);
+  const [recentPosts, setRecentePosts] = useState(null);
 
   useEffect(() => {
     dispatch(startLoading());
@@ -40,14 +42,43 @@ const PostPage = () => {
           error.response?.data?.message ||
           error.message ||
           "An unexpected error occurred.";
-        toast.error(errorMessage);
+        return toast.error(errorMessage);
       } finally {
         dispatch(endLoading()); // Ensuring endLoading is called in both success and error cases
       }
     };
 
     fetchPost();
-  }, []);
+  }, [postSlug]);
+
+  useEffect(() => {
+    try {
+      const fetchRecentPosts = async () => {
+        const res = await api.get(
+          import.meta.env.VITE_GET_RECENT_POSTS_ROUTE + 3,
+          {
+            headers: {
+              "Content-Type": import.meta.env.VITE_SUP_SIN_HEADERS,
+            },
+          }
+        );
+
+        if (res.status === 200) {
+          setRecentePosts(res.data.posts);
+        } else {
+          toast.error("An error occurred in recent posts!");
+        }
+      };
+      fetchRecentPosts();
+    } catch (error) {
+      console.log(error);
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "An unexpected error occurred.";
+      return toast.error(errorMessage);
+    }
+  }, [postSlug]);
 
   if (loading) {
     return <Loading />;
@@ -106,6 +137,13 @@ const PostPage = () => {
       ></div>
       {/* <div className="max-w-4xl mx-auto w-full"><CallToAction /></div> */}
       <CommentSection postId={currentPost && currentPost._id} />
+      <div className="flex flex-col justify-center items-center mb-5">
+        <h2 className="text-xl mt-5">Recent Articales</h2>
+        <div className="flex justify-center items-center flex-wrap gap-3 mt-5">
+          {recentPosts &&
+            recentPosts.map((post) => <PostCard key={post._id} post={post} />)}
+        </div>
+      </div>
     </main>
   );
 };
