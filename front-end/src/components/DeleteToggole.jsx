@@ -5,13 +5,13 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
-import { useApi } from "../../context/ApiContext";
+import { useApi } from "../context/ApiContext";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteUserFailure,
   deleteUserSuccess,
   deleteUserStart,
-} from "../../redux/user/userSlice";
+} from "../redux/user/userSlice";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import Cookies from "js-cookie";

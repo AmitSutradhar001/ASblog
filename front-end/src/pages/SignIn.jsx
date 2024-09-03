@@ -1,4 +1,4 @@
-import Input from "../components/signup/Input";
+import Input from "../components/Input";
 import { Link, useNavigate } from "react-router-dom";
 import { useApi } from "../context/ApiContext";
 import { jwtDecode } from "jwt-decode";

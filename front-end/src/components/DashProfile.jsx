@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import DeleteToggole from "./DeleteToggole.jsx";
 import {
   getDownloadURL,
@@ -11,8 +11,8 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-import { app } from "../../firebase.js";
-import { useApi } from "../../context/ApiContext.jsx";
+import { app } from "../firebase.js";
+import { useApi } from "../context/ApiContext.jsx";
 import {
   signoutStart,
   signoutSuccess,
@@ -20,7 +20,7 @@ import {
   updateFailure,
   updateStart,
   updateSuccess,
-} from "../../redux/user/userSlice.js";
+} from "../redux/user/userSlice.js";
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 

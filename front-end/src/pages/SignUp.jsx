@@ -1,4 +1,4 @@
-import Input from "../components/signup/Input";
+import Input from "../components/Input";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useApi } from "../context/ApiContext";
@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 const SignUp = () => {
   const [isLoading, setIsloading] = useState(false);
   const api = useApi();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
