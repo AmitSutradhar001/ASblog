@@ -45,7 +45,7 @@ const SignIn = () => {
         });
         toast.success(res.data.message || "SignedIn Success!");
         setTimeout(() => {
-          navigate("/dashbord?tab=profile");
+          navigate("/dashboard?tab=profile");
         }, 2000);
       } else {
         console.log(res.data);
