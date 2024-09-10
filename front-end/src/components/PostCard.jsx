@@ -1,43 +1,25 @@
 import { Link } from "react-router-dom";
 
-const PostCard = ({ post }) => {
+export default function PostCard({ post }) {
   return (
-    <div className="gap-3 w-72 h-96 flex flex-col justify-around px-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-      <Link to={`/post/${post.slug}`} className="border-b-2">
+    <div className="group relative w-full border border-teal-500 hover:border-2 h-[400px] overflow-hidden rounded-lg sm:w-[430px] transition-all">
+      <Link to={`/post/${post.slug}`}>
         <img
-          className="rounded-t-lg h-48 w-full"
           src={post.image}
-          alt="cover image"
+          alt="post cover"
+          className="h-[260px] w-full  object-cover group-hover:h-[200px] transition-all duration-300 z-20"
         />
       </Link>
-      <div className="p-5">
-        <h5 className="mb-2 line-clamp-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">
-          {post.title}
-        </h5>
+      <div className="p-3 flex flex-col gap-2">
+        <p className="text-lg font-semibold line-clamp-2">{post.title}</p>
+        <span className="italic text-sm">{post.category}</span>
         <Link
           to={`/post/${post.slug}`}
-          className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          className="z-10 group-hover:bottom-0 absolute bottom-[-200px] left-0 right-0 border border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white transition-all duration-300 text-center py-2 rounded-md !rounded-tl-none m-2"
         >
-          Read more
-          <svg
-            className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 10"
-          >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M1 5h12m0 0L9 1m4 4L9 9"
-            />
-          </svg>
+          Read article
         </Link>
       </div>
     </div>
   );
-};
-
-export default PostCard;
+}

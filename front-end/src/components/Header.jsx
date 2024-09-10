@@ -1,5 +1,5 @@
 import { Button, Navbar, TextInput } from "flowbite-react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaMoon, FaSun } from "react-icons/fa";
 import HamburgerMenu from "./HamburgerMenu";
@@ -10,6 +10,8 @@ import Cookies from "js-cookie";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const location = useLocation();
@@ -28,6 +30,23 @@ const Header = () => {
       ? "block px-4 py-2 dark:text-gray-200  text-blue-800 font-bold rounded-lg hover:bg-gray-300"
       : "block px-4 py-2 dark:text-gray-200  text-gray-800 hover:bg-gray-300 rounded-lg";
   };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const searchTermFromUrl = urlParams.get("searchTerm");
+    if (searchTermFromUrl) {
+      setSearchTerm(searchTermFromUrl);
+    }
+  }, [location.search]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.set("searchTerm", searchTerm);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
+  };
+
   return (
     <>
       <Navbar className="border-b-2 flex justify-around px-10">
@@ -37,13 +56,17 @@ const Header = () => {
         >
           AsBlog
         </Link>
-        <form className="lg:w-72 md:w-48">
+        <form onSubmit={handleSubmit} className="lg:w-72 md:w-48">
           <TextInput
             className="hidden sm:inline"
             type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search..."
             rightIcon={() => (
-              <AiOutlineSearch className="w-8 h-8 text-green-400 mt-1 cursor-pointer" />
+              <button type="submit">
+                <AiOutlineSearch className="w-8 h-8 text-green-400 mt-1 cursor-pointer" />
+              </button>
             )}
           />
         </form>
@@ -53,9 +76,6 @@ const Header = () => {
           </NavLink>
           <NavLink to="/about" className={getNavLinkClass("/about")}>
             About
-          </NavLink>
-          <NavLink to="/projects" className={getNavLinkClass("/projects")}>
-            Projects
           </NavLink>
         </div>
         <div className="flex gap-5 text-center">

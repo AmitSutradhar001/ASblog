@@ -6,10 +6,13 @@ import { toast } from "react-toastify";
 const PrivateCom = ({ children }) => {
   const { currentUser } = useSelector((state) => state.user);
   const token = Cookies.get("asblog_token");
+
   if (!currentUser?.user || !token) {
-    <Navigate to="/signin" replace />;
-    return toast.info("Cookie has expires! please Login");
+    toast.info("Cookie has expired! Please log in.");
+    setTimeout(() => <Navigate to="/signin" replace />, 3000);
   }
+
   return children;
 };
+
 export default PrivateCom;
