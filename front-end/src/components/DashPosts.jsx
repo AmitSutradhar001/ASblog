@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useApi } from "../../context/ApiContext";
+import { useApi } from "../context/ApiContext";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import DeletePost from "./DeletePost";
-import { startLoading, endLoading } from "../../redux/user/userSlice";
+import { startLoading, endLoading } from "../redux/user/userSlice";
 const DashPosts = () => {
   const api = useApi();
   const dispatch = useDispatch();

@@ -85,7 +85,7 @@ const Header = () => {
                 <div className="absolute z-50 right-0 w-28 mt-2 py-2 bg-white border rounded shadow-xl dark:bg-gray-800 dark:border-gray-700">
                   <NavLink
                     onClick={() => setIsOpen((pre) => !pre)}
-                    to="/dashbord?tab=profile"
+                    to="/dashboard?tab=profile"
                     className={`${getNavLinkClass(
                       "/profile"
                     )} dark:text-white hover:dark:text-gray-900`}
@@ -94,7 +94,7 @@ const Header = () => {
                   </NavLink>
                   <NavLink
                     onClick={() => setIsOpen((pre) => !pre)}
-                    to="/dashbord?tab=posts"
+                    to="/dashboard?tab=posts"
                     className={`${getNavLinkClass(
                       "/posts"
                     )} dark:text-white hover:dark:text-gray-900`}

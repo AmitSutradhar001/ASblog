@@ -22,7 +22,7 @@ const DashSidebar = () => {
       <Sidebar.Items>
         <Sidebar.ItemGroup>
           <Link
-            to="/dashbord?tab=profile"
+            to="/dashboard?tab=profile"
             className="flex items-center w-full p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             <Sidebar.Item
@@ -57,7 +57,65 @@ const DashSidebar = () => {
           {currentUser.user.isAdmin && (
             <>
               <Link
-                to="/dashbord?tab=posts"
+                to="/dashboard?tab=dashboard"
+                className="flex items-center w-full p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                <Sidebar.Item
+                  active={tab === "dashboard"}
+                  className="w-52"
+                  as="div"
+                >
+                  <div className="w-full flex justify-between">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-7 h-7"
+                      fill="none"
+                      viewBox="0 0 96 96"
+                      id="dashboard"
+                    >
+                      <rect
+                        width="32"
+                        height="32"
+                        x="10"
+                        y="54"
+                        stroke="currentColor"
+                        strokeWidth="5"
+                        rx="9"
+                      ></rect>
+                      <rect
+                        width="32"
+                        height="32"
+                        x="10"
+                        y="10"
+                        stroke="currentColor"
+                        strokeWidth="5"
+                        rx="9"
+                      ></rect>
+                      <rect
+                        width="32"
+                        height="32"
+                        x="54"
+                        y="10"
+                        stroke="currentColor"
+                        strokeWidth="5"
+                        rx="9"
+                      ></rect>
+                      <path
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeWidth="5"
+                        d="M70 57L70 83M83 70L57 70"
+                      ></path>
+                    </svg>
+
+                    <span className="flex-1 ms-3 whitespace-nowrap">
+                      Dashboard
+                    </span>
+                  </div>
+                </Sidebar.Item>
+              </Link>
+              <Link
+                to="/dashboard?tab=posts"
                 className="flex items-center w-full p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <Sidebar.Item
@@ -94,7 +152,7 @@ const DashSidebar = () => {
                 </Sidebar.Item>
               </Link>
               <Link
-                to="/dashbord?tab=users"
+                to="/dashboard?tab=users"
                 className="flex items-center w-full p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <Sidebar.Item
@@ -131,11 +189,11 @@ const DashSidebar = () => {
                 </Sidebar.Item>
               </Link>
               <Link
-                to="/dashbord?tab=comments"
+                to="/dashboard?tab=comments"
                 className="flex items-center w-full p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <Sidebar.Item
-                  active={tab === "posts"}
+                  active={tab === "comments"}
                   className="w-52"
                   as="div"
                 >
@@ -162,7 +220,7 @@ const DashSidebar = () => {
             </>
           )}
           <Link
-            to="/dashbord?tab=profile"
+            to="/dashboard?tab=profile"
             className="flex items-center w-full p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             <Sidebar.Item className="w-52" as="div">

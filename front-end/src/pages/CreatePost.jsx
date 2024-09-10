@@ -117,7 +117,7 @@ const CreatePost = () => {
         setFormData({});
         toast.success("Post is created!");
         setTimeout(() => {
-          navigate(`/dashbord?tab=profile`);
+          navigate(`/dashboard?tab=profile`);
         }, 4000);
       } else {
         console.log(res.data);

@@ -1,4 +1,4 @@
-import Input from "../components/signup/Input";
+import Input from "../components/Input";
 import { Link, useNavigate } from "react-router-dom";
 import { useApi } from "../context/ApiContext";
 import { jwtDecode } from "jwt-decode";
@@ -45,7 +45,7 @@ const SignIn = () => {
         });
         toast.success(res.data.message || "SignedIn Success!");
         setTimeout(() => {
-          navigate("/dashbord?tab=profile");
+          navigate("/dashboard?tab=profile");
         }, 2000);
       } else {
         console.log(res.data);
