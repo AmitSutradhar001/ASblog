@@ -12,13 +12,16 @@ const HamburgerMenu = () => {
 
   const getNavLinkClass = (to) => {
     return path === to
-      ? "block px-4 py-2 text-blue-800 font-bold hover:bg-gray-200"
-      : "block px-4 py-2 text-gray-800 hover:bg-gray-200";
+      ? "block px-4 py-2 text-blue-800 hover:text-blue-700 font-bold"
+      : "block px-4 py-2  hover:text-blue-700 text-white ";
   };
 
   return (
     <div className="relative">
-      <button onClick={toggleMenu} className="text-gray-800 focus:outline-none">
+      <button
+        onClick={toggleMenu}
+        className="text-gray-800 dark:text-white focus:outline-none"
+      >
         <svg
           className="w-6 h-6"
           fill="none"
@@ -36,15 +39,12 @@ const HamburgerMenu = () => {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 w-48 mt-2 py-2 bg-white border rounded shadow-xl">
+        <div className="absolute right-0 w-48 mt-2 py-2 bg-white border rounded shadow-xl dark:bg-[rgb(16,23,42)] border-white ">
           <NavLink to="/" className={getNavLinkClass("/")}>
             Home
           </NavLink>
           <NavLink to="/about" className={getNavLinkClass("/about")}>
             About
-          </NavLink>
-          <NavLink to="/projects" className={getNavLinkClass("/projects")}>
-            Projects
           </NavLink>
         </div>
       )}

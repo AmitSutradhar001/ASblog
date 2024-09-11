@@ -4,10 +4,7 @@ import { BsFacebook, BsInstagram, BsTwitterX, BsGithub } from "react-icons/bs";
 const FooterCom = () => {
   return (
     <div className="px-5">
-      <Footer
-        container
-        className="border border-t-4 mt-4 border-amber-200  py-4"
-      >
+      <Footer container className="border border-t-4  border-amber-200  py-4">
         <div className="w-full max-w-7xl mx-auto">
           <div className="flex w-full gap-3 justify-around">
             <div className="mt-8">
